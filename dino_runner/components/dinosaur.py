@@ -23,7 +23,7 @@ class Dinosaur:
         elif self.dino_jump:
             self.jump()
             
-        if user_input[pygame.K_UP] and not self.dino_jump:
+        if user_input[pygame.K_UP] and not self.dino_jump or user_input[pygame.K_SPACE] and not self.dino_jump:
             self.dino_jump = True
             self.dino_run = False
         elif not self.dino_jump:
@@ -38,7 +38,7 @@ class Dinosaur:
         self.dino_rect = self.image.get_rect()
         self.dino_rect.x = self.X_POS
         self.dino_rect.y = self.Y_POS
-        self.step_index =+ 1
+        self.step_index += 1
     
     def jump(self):
         self.image = JUMPING
@@ -55,5 +55,5 @@ class Dinosaur:
         pass
     
     def draw(self, screen):
-        screen.blit(self.image, (self.dino_rect.x, self.dino_rect.x))
+        screen.blit(self.image, (self.dino_rect.x, self.dino_rect.y))
         
