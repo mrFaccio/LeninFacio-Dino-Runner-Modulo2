@@ -28,24 +28,18 @@ class Dinosaur(Sprite):
         elif self.dino_duck:
             self.duck()
             
-        #refactor
-        #considerar un if para correr if self.run: self.jump and self.duck = False
-        #Un elif para saltar elif self.jump: self.run and self.duck = False
-        #Un elif para agachar elif self.duck: self.jump and self.duck = False
-        
         if user_input[pygame.K_UP] and not self.dino_jump or user_input[pygame.K_SPACE] and not self.dino_jump:
             self.dino_jump = True
             self.dino_run = False
+            self.dino_duck = False
+        elif user_input[pygame.K_DOWN] and not self.dino_jump:
+            self.dino_jump = False
+            self.dino_run = False
+            self.dino_duck = True
         elif not self.dino_jump:
             self.dino_jump = False
             self.dino_run = True
-        
-        if user_input[pygame.K_DOWN]:
-            self.dino_duck = True
-            self.dino_run = False
-        elif not self.dino_duck:
             self.dino_duck = False
-            self.dino_run = True
             
         if self.step_index >= 10:
             self.step_index = 0
