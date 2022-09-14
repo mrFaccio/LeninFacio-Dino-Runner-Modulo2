@@ -3,8 +3,9 @@ import random
 
 from cgitb import small
 
-from dino_runner.utils.constants import SMALL_CACTUS, LARGE_CACTUS
+from dino_runner.utils.constants import SMALL_CACTUS, LARGE_CACTUS, BIRD
 from dino_runner.components.obstacles.cactus import SmallCactus, LargeCactus
+from dino_runner.components.obstacles.bird import Bird
 
 class ObstacleManager:
     def __init__(self):
@@ -14,10 +15,13 @@ class ObstacleManager:
         if len(self.obstacles) == 0:
             small_cactus = SmallCactus(SMALL_CACTUS)
             large_cactus = LargeCactus(LARGE_CACTUS)
+            bird = Bird(BIRD)
             if random.randint(0, 2) == 0:
                 self.obstacles.append(small_cactus)
             elif random.randint(0, 2) == 1:
                 self.obstacles.append(large_cactus)
+            elif random.randint(0, 2) == 2:
+                self.obstacles.append(bird)
         
             
         for obstacle in self.obstacles:
