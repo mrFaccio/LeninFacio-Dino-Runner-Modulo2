@@ -71,11 +71,15 @@ class Game:
         self.x_pos_bg -= self.game_speed
         
     def draw_score(self):
-        font = pygame.font.Font(FONT_STYLE, 30)
-        text = font.render(f'Score: {self.score}', True, (0, 0, 0))
+        self.show_text(FONT_STYLE, 30, f'Score: {self.score}', True, (0,0,0), 1000, 50)
+        
+    def show_text(self, font, size, text, antialiasing: bool, color, text_x, text_y):
+        font = pygame.font.Font(font, size)
+        text = font.render(text, antialiasing, color)
         text_rec = text.get_rect()
-        text_rec.center = (1000, 50)
+        text_rec.center = (text_x, text_y)
         self.screen.blit(text, text_rec)
+        
 
     def update_score(self):
         self.score += 1
@@ -99,13 +103,13 @@ class Game:
         half_screen_width = SCREEN_WIDTH // 2
         
         if self.death_count == 0:
-            font = pygame.font.Font(FONT_STYLE, 30)
-            text = font.render('Press any key to start de game', True, (0, 0, 0))
-            text_rec = text.get_rect()
-            text_rec.center = (half_screen_width, half_screen_height)
-            self.screen.blit(text, text_rec)
+            self.show_text(FONT_STYLE, 30, 'Press any key to start the game', True, (0,0,0), half_screen_width, half_screen_height)
         else:
-            pass
-        self.screen.blit(ICON, (half_screen_width -20, half_screen_height -140))
+            self.show_text(FONT_STYLE, 30, 'GAME OVER', True, (0,0,0), half_screen_width, half_screen_height)
+            self.show_text(FONT_STYLE, 30, f'Total score: {self.score}', True, (0,0,0), 900, 50)
+            self.show_text(FONT_STYLE, 30, f'Total deaths: {self.death_count}', True, (0,0,0), 200, 50)
+            self.score = 0
+            self.game_speed = 20
+        self.screen.blit(ICON, (half_screen_width -60, half_screen_height -140))
         pygame.display.update()
         self.handle_events_on_menu()
