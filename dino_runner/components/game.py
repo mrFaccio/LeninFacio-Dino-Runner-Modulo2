@@ -106,10 +106,6 @@ class Game:
             self.screen.blit(text, text_rec)
         else:
             pass
-            #Tarea
-            #Crear metodo para mostrar el texto
-            #Resetear score y game speed
-            #VISUALIZAR SCORE, DEATH_COUNT y GAME OVER
         self.screen.blit(ICON, (half_screen_width -20, half_screen_height -140))
         pygame.display.update()
         self.handle_events_on_menu()
