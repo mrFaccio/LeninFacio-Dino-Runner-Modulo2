@@ -28,7 +28,7 @@ class ObstacleManager:
         for obstacle in self.obstacles:
             obstacle.update(game.game_speed, self.obstacles)
             if game.player.dino_rect.colliderect(obstacle.rect):
-                if game.player.type != HAMMER_TYPE:
+                if game.player.type != HAMMER_TYPE and game.player.type != SHIELD_TYPE:
                     game.death_count += 1
                     game.playing = False
                 else:
