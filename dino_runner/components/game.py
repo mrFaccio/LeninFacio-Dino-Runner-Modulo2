@@ -4,6 +4,7 @@ from dino_runner.components.dinosaur import Dinosaur
 from dino_runner.utils.constants import BG, ICON, SCREEN_HEIGHT, SCREEN_WIDTH, TITLE, FPS, FONT_STYLE, DEFAULT_TYPE
 from dino_runner.components.obstacles.obstacle_manager import ObstacleManager
 from dino_runner.components.power_ups.power_up_manager import PowerUpManager
+from dino_runner.components.cloud import Cloud
 
 
 class Game:
@@ -18,6 +19,7 @@ class Game:
         self.x_pos_bg = 0
         self.y_pos_bg = 380
         self.player = Dinosaur()
+        self.cloud = Cloud()
         self.obstacle_manager = ObstacleManager()
         self.power_up_manager = PowerUpManager()
         self.running = False
@@ -57,6 +59,7 @@ class Game:
         self.update_score()
         user_input = pygame.key.get_pressed()
         self.player.update(user_input)
+        self.cloud.update(self.game_speed)
         self.obstacle_manager.update(self)
         self.power_up_manager.update(self)
 
@@ -67,6 +70,7 @@ class Game:
         self.draw_score()
         self.draw_power_up_time()
         self.player.draw(self.screen)
+        self.cloud.draw(self.screen)
         self.obstacle_manager.draw(self.screen)
         self.power_up_manager.draw(self.screen)
         pygame.display.update()
@@ -116,7 +120,6 @@ class Game:
                 self.run()
         
     def show_menu(self):
-        print(self.death_count)
         self.screen.fill((255, 255, 255))
         half_screen_height = SCREEN_HEIGHT // 2
         half_screen_width = SCREEN_WIDTH // 2
@@ -125,8 +128,9 @@ class Game:
             self.show_text(FONT_STYLE, 30, 'Press any key to start the game', True, (0,0,0), half_screen_width, half_screen_height)
         else:
             self.show_text(FONT_STYLE, 30, 'GAME OVER', True, (0,0,0), half_screen_width, half_screen_height)
-            self.show_text(FONT_STYLE, 30, f'Total score: {self.score}', True, (0,0,0), 900, 50)
-            self.show_text(FONT_STYLE, 30, f'Total deaths: {self.death_count}', True, (0,0,0), 200, 50)
+            self.show_text(FONT_STYLE, 25, f'Your score: {self.score}', True, (0,0,0), half_screen_width, half_screen_height + 50)
+            self.show_text(FONT_STYLE, 25, f'Total deaths: {self.death_count}', True, (0,0,0), half_screen_width, half_screen_height + 100)
+            self.show_text(FONT_STYLE, 30, 'Press any key to restart the game', True, (0,0,0), half_screen_width, half_screen_height + 150) 
         self.screen.blit(ICON, (half_screen_width -60, half_screen_height -140))
         pygame.display.update()
         self.handle_events_on_menu()
